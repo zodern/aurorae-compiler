@@ -1,6 +1,8 @@
 Package.describe({
   name: 'zodern:aurorae-compiler',
   description: 'Aurorae compiler for story files',
+  git: 'https://github.com/zodern/aurorae-compiler.git',
+  documentation: './readme.md'
 });
 
 Package.onUse(api => {
