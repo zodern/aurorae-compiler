@@ -12,6 +12,14 @@ Package.onUse(api => {
 
 Package.registerBuildPlugin({
   name: 'compile-stories',
-  use: ['babel-compiler', 'react-fast-refresh'],
+  use: [
+    'ecmascript',
+    // For .stories.js files
+    'babel-compiler', 'react-fast-refresh',
+    // For .stories.html files
+    'caching-html-compiler', 'templating-tools',
+    // For .stories.svelte files
+    'zodern:melte-compiler'
+  ],
   sources: ['build-plugin.js']
 });
