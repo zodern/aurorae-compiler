@@ -13,17 +13,10 @@ function createProcessFilesForTarget(CompilerClass, prepareContent) {
       var inNodeModules = path.startsWith('node_modules/') || path.includes('/node_modules/');
       var inServer = file.getArch().startsWith('os.');
 
-      if (isProd && !inNodeModules) {
-        // prevent file from being included in production
-        // Except for files in node_modules since they should be included
-        // if they are imported
-        return;
-      }
-
       let oldAdd = file.constructor.prototype.addJavaScript;
       file.addJavaScript = function (options, lazyFinalizer) {
         if (typeof options.lazy !== 'boolean') {
-          options.lazy = inServer || inNodeModules;
+          options.lazy = isProd || inServer || inNodeModules;
         };
         if (options.data !== undefined) {
           options.data = prepareContent(options.data)
