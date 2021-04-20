@@ -1,6 +1,7 @@
 // Overrides processFilesForTarget to ensure:
 // 1. files outside of node_modules are eagerly loaded in development
 // 2. files outside of node_modules are lazy in production builds
+// 3. files in the server are always lazy
 function createProcessFilesForTarget(CompilerClass, prepareContent) {
   prepareContent = prepareContent || ((data) => data);
   return function processFilesForTarget(files) {
@@ -10,6 +11,7 @@ function createProcessFilesForTarget(CompilerClass, prepareContent) {
     files.forEach(file => {
       var path = file.getPathInPackage();
       var inNodeModules = path.startsWith('node_modules/') || path.includes('/node_modules/');
+      var inServer = file.getArch().startsWith('os.');
 
       if (isProd && !inNodeModules) {
         // prevent file from being included in production
@@ -21,7 +23,7 @@ function createProcessFilesForTarget(CompilerClass, prepareContent) {
       let oldAdd = file.constructor.prototype.addJavaScript;
       file.addJavaScript = function (options, lazyFinalizer) {
         if (typeof options.lazy !== 'boolean') {
-          options.lazy = inNodeModules
+          options.lazy = inServer || inNodeModules;
         };
         if (options.data !== undefined) {
           options.data = prepareContent(options.data)
