@@ -1,8 +1,9 @@
 Package.describe({
   name: 'zodern:aurorae-compiler',
-  description: 'Aurorae compiler for story files',
+  summary: 'Aurorae compiler for story files',
   git: 'https://github.com/zodern/aurorae-compiler.git',
-  documentation: './readme.md'
+  documentation: './readme.md',
+  version: '0.1.0'
 });
 
 Package.onUse(api => {
@@ -13,13 +14,16 @@ Package.onUse(api => {
 Package.registerBuildPlugin({
   name: 'compile-stories',
   use: [
-    'ecmascript',
+    'ecmascript@0.15.0',
+
     // For .stories.js files
-    'babel-compiler', 'react-fast-refresh',
+    'babel-compiler@7.6.1', 'react-fast-refresh@0.1.0',
+
     // For .stories.html files
-    'caching-html-compiler', 'templating-tools',
+    'caching-html-compiler@1.2.0', 'templating-tools@1.2.0',
+
     // For .stories.svelte files
-    'zodern:melte-compiler'
+    'zodern:melte-compiler@1.0.0'
   ],
   sources: ['build-plugin.js']
 });
