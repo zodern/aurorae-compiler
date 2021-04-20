@@ -167,7 +167,10 @@ async function preprocessSvelte(code, file) {
         // TODO: make sure the added imports and variable names are unique
         if (attributes.context === 'module') {
           content = codeToAdd + content;
+          added = true;
         }
+
+        return { code: content };
       }
     }));
 
