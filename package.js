@@ -23,7 +23,7 @@ Package.registerBuildPlugin({
     'caching-html-compiler@1.2.0', 'templating-tools@1.2.0',
 
     // For .stories.svelte files
-    'zodern:melte-compiler@1.0.1'
+      'zodern:melte-compiler@1.0.2'
   ],
   sources: ['build-plugin.js']
 });
